@@ -6,6 +6,7 @@ use App\Http\Controllers\AdivinaNumeroController;
 use App\Http\Controllers\FactorialController;
 use App\Http\Controllers\NotasController;
 use App\Http\Controllers\TablaController;
+use App\Http\Controllers\NumerosController;
 
 Route::get('frmcuadratica',[OperacionesController::class, 'frmcuadratica']);
 Route::post('cuadratica', [OperacionesController::class, 'cuadratica'])->name('cuadratica.calcular');
@@ -22,3 +23,6 @@ Route::post('notas',[NotasController::class, 'procesarNotas'])->name('notas.proc
 // Ejercicio 4.
 Route::get('tabla', [TablaController::class, 'mostrarFormulario']);
 Route::post('tabla', [TablaController::class, 'procesarTabla'])->name('tabla.procesar');
+// Ejercicio 5.
+Route::get('numero',[NumerosController::class, 'mostrarFormulario']);
+Route::post('numero', [NumerosController::class, 'procesarNumero'])->name('numero.procesar');
