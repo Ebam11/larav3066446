@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Models\Result;
 class OperacionesController extends Controller
 {
     public function frmcuadratica(){
@@ -15,10 +16,19 @@ class OperacionesController extends Controller
         if ($ecu1>0 && $a!=0) {
             $x1 = (-$b + $raiz) / (2 * $a);
             $x2 = (-$b - $raiz) / (2 * $a);
-            echo "x1 = $x1<br>";
-            echo "x2 = $x2<br>";
-        } else{
+            //echo "x1 = $x1<br>";
+            //echo "x2 = $x2";
+      } else{
             echo "Ingrese otros valores";
         }
+        $resul = new Result();
+
+          $resul->a=$request->a;
+          $resul->b=$request->b;
+          $resul->c=$request->c;
+          $resul->x1=$x1;
+          $resul->x2=$x2;
+          $resul->Save();
+          return $resul;
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\FactorialController;
 use App\Http\Controllers\NotasController;
 use App\Http\Controllers\TablaController;
 use App\Http\Controllers\NumerosController;
+use App\Http\Controllers\CategoryController;
 
 Route::get('frmcuadratica',[OperacionesController::class, 'frmcuadratica']);
 Route::post('cuadratica', [OperacionesController::class, 'cuadratica'])->name('cuadratica.calcular');
@@ -26,3 +27,7 @@ Route::post('tabla', [TablaController::class, 'procesarTabla'])->name('tabla.pro
 // Ejercicio 5.
 Route::get('numero',[NumerosController::class, 'mostrarFormulario']);
 Route::post('numero', [NumerosController::class, 'procesarNumero'])->name('numero.procesar');
+
+Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('categories/create', [CategoryController::class, 'create'])->name('categories.create');
+Route::post('categories/store', [CategoryController::class, 'store'])->name('categories.store');
