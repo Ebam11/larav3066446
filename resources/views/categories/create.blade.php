@@ -1,20 +1,26 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Categoría</title>
 </head>
 <body>
+    <h1>Crear Nueva Categoría</h1>
 
-    <h1>Crea Una Nueva Categoría</h1>
+    <form action="{{ route('categories.store') }}" method="POST">
+        @csrf
+        <label for="nombre">Nombre de la Categoría:</label>
+        <input type="text" name="nombre" id="nombre" required>
+        <button type="submit">Guardar Categoría</button>
+        <a href="{{ route('categories.index') }}">Cancelar</a>
+    </form>
 
-    <form method="POST" action="{{ route('categories.store') }}">
-    @csrf
-    <label for="name">Ingrese el nombre de la categoria:</label>
-    <input type="text" name="name">
-    <button type="submit">Guardar</button>
-</form>
-
+    <h3>Categorías sugeridas:</h3>
+    <ul>
+        <li>Arte</li>
+        <li>Deporte</li>
+        <li>Tecnología</li>
+        <li>Pintura</li>
+        <li>Dibujo</li>
+    </ul>
 </body>
 </html>

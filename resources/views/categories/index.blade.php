@@ -1,16 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Lista de Categorías</title>
 </head>
 <body>
     <h1>Lista de Categorías</h1>
 
-@foreach ($categories as $category)
-    <div>{{ $category->name }}</div>
-@endforeach
+    @if(session('success'))
+        <p style="color:green;">{{ session('success') }}</p>
+    @endif
+
+    <a href="{{ route('categories.create') }}">Crear Nueva Categoría</a>
+
+    <table border ="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Fecha de Creación</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($categories as $category)
+                <tr>
+                    <td>{{ $category->id }}</td>
+                    <td>{{ $category->nombre }}</td>
+                    <td>{{ $category->created_at->format('d/m/Y') }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </body>
 </html>
