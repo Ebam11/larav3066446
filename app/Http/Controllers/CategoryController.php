@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -12,19 +12,25 @@ class CategoryController extends Controller
         $categories = Category::all();
         return view('categories.index', compact('categories'));
     }
+
     public function create()
     {
-        return view('categories.create');
+        // 👉 Aquí definimos las sugerencias
+        $suggested = ['Arte', 'Deporte', 'Tecnología', 'Turismo', 'Ciencia'];
+        return view('categories.create', compact('suggested'));
     }
+
     public function store(Request $request)
     {
-    $request->validate([
-        'name' => 'required|unique:categories|max:255',
-    ]);
-    $category = new Category();
-    $category->name = $request->name;
-    $category->save();
+        $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
 
-    return redirect()->route('categories.index');
+        Category::create([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('categories.index')
+                         ->with('success', 'Categoría creada exitosamente');
     }
 }

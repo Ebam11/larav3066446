@@ -1,26 +1,39 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Crear Categoría</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('content')
     <h1>Crear Nueva Categoría</h1>
 
-    <form action="{{ route('categories.store') }}" method="POST">
-        @csrf
-        <label for="nombre">Nombre de la Categoría:</label>
-        <input type="text" name="nombre" id="nombre" required>
-        <button type="submit">Guardar Categoría</button>
-        <a href="{{ route('categories.index') }}">Cancelar</a>
-    </form>
+    {{-- Mensaje de error --}}
+    @if ($errors->any())
+        <div style="color: red;">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-    <h3>Categorías sugeridas:</h3>
-    <ul>
-        <li>Arte</li>
-        <li>Deporte</li>
-        <li>Tecnología</li>
-        <li>Pintura</li>
-        <li>Dibujo</li>
-    </ul>
-</body>
-</html>
+<form action="{{ route('categories.store') }}" method="POST">
+    @csrf
+    <div>
+        <label for="name">Nombre de categoría</label>
+        <input type="text" name="name" id="name" required>
+    </div>
+    <button type="submit">Guardar</button>
+</form>
+
+
+    {{-- Sugerencias --}}
+    @if(!empty($suggested))
+        <h3>Categorías sugeridas:</h3>
+        <ul>
+            @foreach($suggested as $s)
+                <li>{{ $s }}</li>
+            @endforeach
+        </ul>
+    @endif
+
+    <br>
+    <a href="{{ route('categories.index') }}">Volver a la lista</a>
+@endsection
