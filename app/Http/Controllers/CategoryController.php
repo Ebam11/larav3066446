@@ -13,24 +13,54 @@ class CategoryController extends Controller
         return view('categories.index', compact('categories'));
     }
 
+    //desplegar el formulario
     public function create()
     {
-        // 👉 Aquí definimos las sugerencias
         $suggested = ['Arte', 'Deporte', 'Tecnología', 'Turismo', 'Ciencia'];
         return view('categories.create', compact('suggested'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255'
-        ]);
+        $category = new Category();
+        $category->name = $request->name;
 
-        Category::create([
-            'name' => $request->name,
-        ]);
+        //ADJUNTAR LA IMAGEN
+        $file = $request->file("urlImg");
 
-        return redirect()->route('categories.index')
-                         ->with('success', 'Categoría creada exitosamente');
+        $nombreArchivo = "img_".time().".".$file->guessExtension();
+
+        //guardado del archivo
+        $request->file('urlImg')->storeAs('public/images', $nombreArchivo);
+
+        $category->urlImg = $nombreArchivo;
+        $category->save();
+        return redirect()->route('categories.index');
+    }
+
+    public function show(Category $category)
+    { //encontrar la categoria por el ID
+        return view('categories.show', compact('category'));
+    }
+
+    //Destroy
+    public function destroy(Category $category)
+    {
+        $category->delete();
+        return redirect()->route('categories.index');
+    }
+
+    public function edit(Category $category)
+    { //Encuentro la Categoria
+        return view('categories.edit', compact('category'));
+    }
+
+    //Update
+    public function update(Request $request, Category $category)
+    {
+        $category->name = $request->name;
+        $category->save();
+
+        return redirect()->route('categories.index');
     }
 }

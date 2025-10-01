@@ -9,9 +9,9 @@
 <body>
     <h1>Crear Categoria</h1>
 
-    <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="<?php echo e(route('categories.store')); ?>" method="POST" enctype="multipart/form-data">
 
-        @csrf
+        <?php echo csrf_field(); ?>
 
         <label>
             Nombre:
@@ -29,3 +29,4 @@
 </body>
 
 </html>
+<?php /**PATH C:\xampp\htdocs\larav3066446\resources\views/categories/create.blade.php ENDPATH**/ ?>
